@@ -52,17 +52,18 @@ app.post("/compose", function(req, res) {
 
 });
 
-app.get("/posts/:postName", function() {
+app.get("/posts/:postName", function(req, res) {
 
   const requestedTitle = _.lowerCase(req.params.postName);
 
   posts.forEach((post) => {
     if (_.lowerCase(post.title) === requestedTitle) {
-      console.log("Match Found");
+      res.redirect("/post", {
+        title: post.title,
+        content: post.content
+      });
     }
   });
-
-  console.log("");
 
 });
 
